@@ -18,7 +18,7 @@
 	<body>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="index.html">ToDo List</a>
+				<a class="navbar-brand" href="index.html">ToDoList</a>
 				<form>
 					<button type="button" class="btn btn-danger">
 						<i class="bi bi-door-open"></i>
@@ -53,17 +53,17 @@
 							<form>
 								<div class="form-group mb-3">
 									<label for="input-title">Título</label>
-									<input type="text" class="form-control" id="input-title">
+									<input type="text" class="form-control" id="input-title" required>
 								</div>
 								<div class="form-group mb-3">
 									<label for="input-deadline">Prazo</label>
-									<input type="date" class="form-control" id="input-deadline">
+									<input type="date" class="form-control" id="input-deadline" required>
 								</div>
 								<div class="form-group mb-3">
 									<label for="textarea-description">Descrição</label>
-									<textarea type="text" class="form-control" id="textarea-description" rows="5"></textarea>
+									<textarea type="text" class="form-control" id="textarea-description" rows="5" required></textarea>
 								</div>
-								<button type="button" class="btn btn-success w-100" id="save-card-button">Salvar</button>
+								<button type="submit" class="btn btn-success w-100" id="save-card-button">Salvar</button>
 							</form>
 						</div>
 					</div>
