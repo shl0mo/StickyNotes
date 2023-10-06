@@ -30,18 +30,27 @@ export class User {
 		return this.password
 	}
 
-	public saveUser () {
-		fs.readFile(`./src/database/${USERS_DOCUMENT}`, 'utf-8', (err, data) => {
+	public saveUser () : void {
+		const file_path = `./src/database/${USERS_DOCUMENT}`
+		fs.readFile(file_path, 'utf-8', (err, data) => {
 			if (err) {
 				console.error(err)
 				return
 			}
-			console.log(data)
+			const users_array : object[] = JSON.parse(data)
+			const new_username : string = this.getUsername()
+			const new_password : string = this.getPassword()
+			const new_user : object = {
+				"username": new_username,
+				"password": new_password
+			}
+			users_array.push(new_user)
+			console.log(users_array)
+			const new_users_data_string : string = JSON.stringify(users_array)
+			fs.writeFile(file_path, new_users_data_string, (err) => {
+				if (err) console.error(err)
+			})
+
 		})
-		/*const user = {
-			username: getUsername(),
-			password: getPassword(),
-		}
-		const user*/
 	}
 }
