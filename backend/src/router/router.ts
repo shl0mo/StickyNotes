@@ -4,6 +4,7 @@ import { LogarController } from '../controllers/LogarController/LogarController'
 import { SairController } from '../controllers/SairController/SairController'
 import { CheckSessionController } from '../controllers/CheckSessionController/CheckSessionController'
 import { CriarLembreteController } from '../controllers/CriarLembreteController/CriarLembreteController'
+import { ListStickyNotesController } from '../controllers/ListStickyNotesController/ListStickyNotesController'
 
 const router = express.Router()
 
@@ -21,5 +22,7 @@ router.post('/sair', SairController)
 router.post('/checkSession', CheckSessionController)
 
 router.post('/criarLembrete', CriarLembreteController)
+
+router.post('/listStickyNotes', ListStickyNotesController)
 
 export default router

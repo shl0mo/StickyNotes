@@ -1,8 +1,13 @@
 const PORT : number = 5000
 const host : string = `http://localhost:${PORT}`
 
-const objGlobals : object = {
-	username_session: ''
+
+type Card = {
+	"user" : string
+	"title" : string
+	"inclusion_time" : string
+	"deadline" : string
+	"text" : string
 }
 
 
@@ -121,7 +126,6 @@ const checkSession = () : void => {
 		method: 'POST'
 	}).then((res: Response) => {
 		res.json().then((data) => {
-			console.log(data)
 			const url = document.URL
 			if (data.user === '') {
 				if (url.includes('index')) location.href = document.URL.replace('index', 'pages/login')
@@ -134,18 +138,19 @@ const checkSession = () : void => {
 }
 
 const listStickyNotes = () : void => {
-	const username : string = ''
-	fetch(`${host}/checkSession`, {
-		method: 'POST'
+	fetch(`${host}/listStickyNotes`, {
+		method: 'POST',
 	}).then((res: Response) => {
 		res.json().then((data) => {
 			console.log(data)
-			const url = document.URL
-			if (data.user === '') {
-				if (url.includes('index')) location.href = document.URL.replace('index', 'pages/login')
-			} else {
-				if (url.includes('login')) location.href = document.URL.replace('pages/login', 'index')
-				if (url.includes('cadastro')) location.href = document.URL.replace('pages/cadastro', 'index')
+			const data_array = data.data_array
+			for (let card of data_array) {
+				addCard(
+					card.title,
+					card.inclusion_time,
+					card.deadline,
+					card.text
+				)
 			}
 		})
 	})
@@ -158,7 +163,7 @@ if (page_title === 'Aplicação') {
 	const save_card_button : HTMLElement | null = document.querySelector('#save-card-button')
 	logout_button?.addEventListener('click', logout)
 	save_card_button?.addEventListener('click', createStickyNote)
-	// listStickyNotes()
+	listStickyNotes()
 } else if (page_title === 'Login') {
 	const login_button : HTMLElement | null = document.querySelector('#login-button')
 	login_button?.addEventListener('click', () => { sendUserData('logar') })
