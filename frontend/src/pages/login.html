@@ -28,7 +28,7 @@
 					<h5>Login</h5>
 					<hr>
 				</div>
-				<form action="http://localhost:5000/login" method="POST">
+				<form>
 					<div class="mb-3">
 						<label for="input-username-login" class="form-label">Usuário</label>
 						<input id="input-username-login" name="username" class="form-control" required/>
@@ -37,7 +37,7 @@
 						<label for="input-password-login" class="form-label">Senha</label>
 						<input type="password" id="input-password-login" name="password" id="input-senha" class="form-control" required/>
 					</div>
-					<button type="submit" class="btn btn-success w-100 mb-3">Entrar</button>
+					<button type="button" class="btn btn-success w-100 mb-3" id="login-button">Entrar</button>
 					<div class="text-center">Ainda não possui cadastro? <a class="link" href="cadastro.html">Cadastrar</a></div>
 				</form>
 			</div>

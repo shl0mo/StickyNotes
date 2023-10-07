@@ -1,11 +1,6 @@
-const PORT = 5000
+/*document.
 
-console.log(PORT)
-
-function helloWorldTypeScript () {
-	return "Hello world"
-}
-
-function funcao() {
-	alert('Botao clicado')
-}
+const sendUserData () : void => {
+	document.querySelector('input[name=username]')
+	console.log()
+}*/

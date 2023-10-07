@@ -29,7 +29,7 @@
 					<h5>Cadastro de Usuário</h5>
 					<hr>
 				</div>
-				<form action="http://localhost:5000/cadastrar" method="POST">
+				<form>
 					<div class="mb-3">
 						<label for="input-username-register" class="form-label">Usuário</label>
 						<input id="input-username-register" name="username" class="form-control" required/>
@@ -38,7 +38,7 @@
 						<label for="input-password-register" class="form-label">Senha</label>
 						<input type="password" id="input-password-register" name="password" class="form-control" required/>
 					</div>
-					<button type="submit" class="btn btn-success w-100 mb-3">Cadastrar</button>
+					<button type="button" class="btn btn-success w-100 mb-3" id="register-button">Cadastrar</button>
 					<div class="text-center">Já possui cadastro? <a class="link" href="login.html">Login</a></div>
 				</form>
 			</div>
