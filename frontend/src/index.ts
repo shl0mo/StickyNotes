@@ -1,11 +1,19 @@
 const PORT : number = 5000
 const host : string = `http://localhost:${PORT}`
 
+
+const formatDateTime = (unformatted_date : string) : string => {
+	let date = unformatted_date.split('T')[0]
+	while (date.includes('-')) date = date.replace('-', '/')
+	const time = unformatted_date.split('T')[1].split('.')[0]
+	return `${date} &bullet; ${time}`
+}
+
 const createStickyNote = () : void => {
+	const current_datetime = new Date().toISOString()
 	const title : string | null = (<HTMLInputElement>document.querySelector('#input-title')).value
-	const inclusion_time : string | null = String(new Date())
-	console.log(inclusion_time)
-	const deadline : string | null = (<HTMLInputElement>document.querySelector('#input-deadline')).value
+	const inclusion_time : string | null = formatDateTime(current_datetime)
+	const deadline : string | null = formatDateTime((<HTMLInputElement>document.querySelector('#input-deadline')).value)
 	const text : string | null = (<HTMLInputElement>document.querySelector('#textarea-description')).value
 	if (title === '' || inclusion_time === '' || deadline === '' || text === '') {
 		alert('Preencha todos os campos')
@@ -37,9 +45,9 @@ const createStickyNote = () : void => {
 									</span>
 								</div>
 								<hr class="mt-1">
-								<h6 class="card-subtitle mb-2 text-muted">
-									<span>Hora de adição: ${inclusion_time}</span><br>
-									<span class="text-danger">Prazo: ${deadline}</span><br>
+								<h6 class="card-subtitle mb-2 text-primary">
+									<div class="mb-1">Data e hora de adição: ${inclusion_time}</div>
+									<div class="text-danger mb-1">Prazo: ${deadline}</div>
 								</h6>
 								<p class="card-text">
 								${text}
