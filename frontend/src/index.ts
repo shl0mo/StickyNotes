@@ -2,11 +2,11 @@ const PORT : number = 5000
 const host : string = `http://localhost:${PORT}`
 
 const sendUserData = (action : string) : void => {
-	const _name : string | null = (<HTMLInputElement>document.querySelector('input[name=username]')).value
-	const _password : string | null = (<HTMLInputElement>document.querySelector('input[name=password]')).value
+	const username : string | null = (<HTMLInputElement>document.querySelector('input[name=username]')).value
+	const password : string | null = (<HTMLInputElement>document.querySelector('input[name=password]')).value
 	const data : object = {
-		"name": _name,
-		"password": _password
+		"username": username,
+		"password": password
 	}
 	fetch(`${host}/${action}`, {
 		method: 'POST',
@@ -16,7 +16,15 @@ const sendUserData = (action : string) : void => {
 		body: JSON.stringify(data)
 	}).then((res: Response) => {
 		res.json().then((data) => {
-			alert(data.message)
+			if (action === 'logar') {
+				if (data.message !== 'Usuário ou senha inválidos') {
+					window.location.href = document.URL.replace('pages/login', 'index')
+				} else {
+					alert(data.message)
+				}
+			} else if (action === 'cadastrar') {
+				alert(data.message)
+			}
 		})
 	})
 }

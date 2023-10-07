@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express'
 import { CadastrarController } from '../controllers/CadastrarController/CadastrarController'
+import { LogarController } from '../controllers/LogarController/LogarController'
 
 const router = express.Router()
 
@@ -8,9 +9,7 @@ router.get('/', (req: Request, res: Response) => {
 	res.end('Inicio')
 })
 
-router.post('/logar', (req: Request, res: Response) => {
-	
-})
+router.post('/logar', LogarController)
 
 router.post('/cadastrar', CadastrarController)
 
