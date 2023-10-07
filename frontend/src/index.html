@@ -10,15 +10,19 @@
 	width: 100px;
 	height: 100px;
 	font-size: 40px;
-	/*color: white;
-	background-color: green !important;*/
+	color: white;
+	background-color: green !important;
 }
-		</style>
+
+	</style>
 	</head>
 	<body>
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 			<div class="container-fluid">
-				<a class="navbar-brand" href="index.html">ToDoList</a>
+				<a class="navbar-brand" href="index.html">
+					<i class="bi bi-stickies-fill text-dark"></i>
+					StickyNotes
+				</a>
 				<form>
 					<button type="button" class="btn btn-danger" id="logout-button">
 						<i class="bi bi-door-open"></i>
@@ -27,11 +31,12 @@
 				</form>
 			</div>
 		</nav>
-		<main class="wrapper bg-dark vh-100 position-relative">
+		<main class="wrapper bg-dark vh-100 position-relative mt-5">
 			<div class="p-5">
 				<div class="card position-relative w-25 shadow">
 					<div class="card-body">
 						<h5 class="card-title mb-3">Titulo</h5>
+						<hr>
 						<h6 class="card-subtitle mb-2 text-muted">
 							<span>Hora de adição: </span><br>
 							<span class="text-danger">Deadline: </span><br>
