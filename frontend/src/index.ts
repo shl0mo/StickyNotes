@@ -133,8 +133,8 @@ const checkSession = () : void => {
 	})
 }
 
-const listStickyNotes () : void => {
-	const username : string 
+const listStickyNotes = () : void => {
+	const username : string = ''
 	fetch(`${host}/checkSession`, {
 		method: 'POST'
 	}).then((res: Response) => {
@@ -158,7 +158,7 @@ if (page_title === 'Aplicação') {
 	const save_card_button : HTMLElement | null = document.querySelector('#save-card-button')
 	logout_button?.addEventListener('click', logout)
 	save_card_button?.addEventListener('click', createStickyNote)
-	listStickyNotes()
+	// listStickyNotes()
 } else if (page_title === 'Login') {
 	const login_button : HTMLElement | null = document.querySelector('#login-button')
 	login_button?.addEventListener('click', () => { sendUserData('logar') })
