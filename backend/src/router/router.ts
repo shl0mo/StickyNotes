@@ -3,6 +3,7 @@ import { CadastrarController } from '../controllers/CadastrarController/Cadastra
 import { LogarController } from '../controllers/LogarController/LogarController'
 import { SairController } from '../controllers/SairController/SairController'
 import { CheckSessionController } from '../controllers/CheckSessionController/CheckSessionController'
+import { CriarLembreteController } from '../controllers/CriarLembreteController/CriarLembreteController'
 
 const router = express.Router()
 
@@ -18,5 +19,7 @@ router.post('/cadastrar', CadastrarController)
 router.post('/sair', SairController)
 
 router.post('/checkSession', CheckSessionController)
+
+router.post('/criarLembrete', CriarLembreteController)
 
 export default router

@@ -1,8 +1,9 @@
 import express, { Request, Response } from 'express'
+import fs from 'fs'
 import dotenv from 'dotenv'
 
 dotenv.config()
-const CARD_DOCUMENT = process.env.CARD_DOCUMENT
+const CARDS_DOCUMENT = process.env.CARDS_DOCUMENT
 
 
 export class Card {
@@ -10,18 +11,18 @@ export class Card {
 	private title : string = ''
 	private inclusion_time: string = ''
 	private deadline : string = ''
-	private text : strin = ''
+	private text : string = ''
 
-	constructor (user, title, inclusion_time, deadline, text) {
-		this.setUser(user)
+	constructor (title : string, inclusion_time : string, deadline : string, text : string) {
+		this.setUser()
 		this.setTitle(title)
 		this.setInclusionTime(inclusion_time)
 		this.setDeadline(deadline)
 		this.setText(text)
 	}
 
-	public setUser (user : string) : void {
-		this.username = user
+	public setUser () : void {
+		this.user = fs.readFileSync('sessao.txt', 'utf-8')
 	}
 
 	public getUser () : string {
@@ -63,10 +64,7 @@ export class Card {
 	public save (res : Response) : void {
 		const file_path = `./src/database/${CARDS_DOCUMENT}`
 		fs.readFile(file_path, 'utf-8', (err, data) => {
-			if (err) {
-				console.error(err)
-				return
-			}
+			if (err) res.json({ "message": 'erro' })
 			const cards_array : object[] = JSON.parse(data)
 			const new_card : object = {
 				"user": this.getUser(),
@@ -79,11 +77,10 @@ export class Card {
 			console.log(cards_array)
 			const new_cards_data_string : string = JSON.stringify(cards_array)
 			fs.writeFile(file_path, new_cards_data_string, (err) => {
-				if (err) console.error(err)
+				if (err) res.json({ "message": 'erro' })
 			})
-			const message : string =  'Lembrete cadastrado com sucesso'
-			console.log(message)
-			res.json({ "message": message })
+			console.log('Lembrete criado com sucesso')
+			res.json({ "message": 'sucesso' })
 		})
 	}
 
