@@ -152,6 +152,9 @@ const listStickyNotes = () : void => {
 					card.text
 				)
 			}
+			const main : HTMLElement  = (<HTMLElement>document.querySelector('main'))
+			const container : HTMLElement = (<HTMLElement>document.querySelector('.container'))
+			if (main.offsetHeight < container.offsetHeight) main.classList.remove('vh-100')
 		})
 	})
 }
