@@ -1,3 +1,4 @@
+import express, { Request, Response } from 'express' 
 import fs from 'fs'
 import dotenv from 'dotenv'
 import _ from 'lodash'
@@ -31,7 +32,7 @@ export class User {
 		return this.password
 	}
 
-	public saveUser () : string {
+	public saveUser (res : Response) : void {
 		const file_path = `./src/database/${USERS_DOCUMENT}`
 		fs.readFile(file_path, 'utf-8', (err, data) => {
 			if (err) {
@@ -41,7 +42,8 @@ export class User {
 			const users_array : object[] = JSON.parse(data)
 			if (_.find(users_array, { "username": this.getUsername() })) {
 				console.log('erro: usuário já cadastrado')
-				return 'erro: usuário já cadastrado'
+				res.json({ "message": 'Erro: nome de usuário já cadastrado. Escolha outro' })
+				return
 			}
 			const new_username : string = this.getUsername()
 			const new_password : string = this.getPassword()
@@ -56,8 +58,7 @@ export class User {
 				if (err) console.error(err)
 			})
 			console.log('sucesso')
-			return 'sucesso'
+			res.json({ "message": 'Usuário cadastrado com sucesso' })
 		})
-		return ''
 	}
 }

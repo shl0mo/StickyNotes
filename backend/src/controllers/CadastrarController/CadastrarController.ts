@@ -8,6 +8,5 @@ export const CadastrarController = (req: Request, res: Response) : void => {
 		_name,
 		_password
 	)
-	const message : string = user.saveUser()
-	res.send(message)
+	user.saveUser(res)
 }
