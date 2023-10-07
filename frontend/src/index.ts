@@ -25,9 +25,14 @@ const addCard = (title : string, inclusion_time : string, deadline : string, tex
 				<div class="card-body">
 					<div class="d-flex flex-row justify-content-between m-0">
 						<h5 class="card-title mb-3">${title}</h5>
-							<span>
-								<button type="button" class="btn-close" aria-label="Fechar"></button>
-							</span>
+								<div class="d-flex flex-row w-25 justify-content-around">
+								<div>
+									<button class="btn p-0 pb-2"><i class="bi bi-pencil-square"></i></button>
+								</div>
+								<div>
+									<button type="button" class="btn-close" aria-label="Fechar"></button>
+								</div>
+							</div>
 						</div>
 						<hr class="mt-1">
 						<h6 class="card-subtitle mb-2 text-primary">
