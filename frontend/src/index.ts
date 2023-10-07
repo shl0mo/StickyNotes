@@ -29,10 +29,21 @@ const sendUserData = (action : string) : void => {
 	})
 }
 
+const logout = () : void => {
+	console.log('clicou em sair')
+	fetch(`${host}/sair`, {
+		method: 'POST'
+	}).then((res: Response) => {
+		if (res.status == 200) window.location.href = document.URL.replace('index', 'pages/login')
+	})
+}
+
 
 const page_title : string | null  = (<HTMLTitleElement>document.querySelector('title')).innerText
 if (page_title === 'Aplicação') {
+	const logout_button : HTMLElement | null = document.querySelector('#logout-button') 
 	const save_card_button : HTMLElement | null = document.querySelector('#save_card_button')
+	logout_button?.addEventListener('click', logout)
 } else if (page_title === 'Login') {
 	const login_button : HTMLElement | null = document.querySelector('#login-button')
 	login_button?.addEventListener('click', () => { sendUserData('logar') })

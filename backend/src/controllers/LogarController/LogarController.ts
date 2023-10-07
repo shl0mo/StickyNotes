@@ -14,7 +14,7 @@ export const LogarController = (req: Request, res: Response) : void => {
 	fs.readFile(file_path, 'utf-8', (err, data) => {
 		const users_array = JSON.parse(data)
 		if (_.find(users_array, { "username": username, "password": password })) {
-			fs.writeFileSync('sesssao.txt', username)
+			fs.writeFileSync('sessao.txt', username)
 			const message = 'Login realizado com sucesso'
 			res.json({ "message": message })
 		} else {
