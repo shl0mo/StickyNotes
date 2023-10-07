@@ -32,7 +32,7 @@ export class User {
 		return this.password
 	}
 
-	public saveUser (res : Response) : void {
+	public save (res : Response) : void {
 		const file_path = `./src/database/${USERS_DOCUMENT}`
 		fs.readFile(file_path, 'utf-8', (err, data) => {
 			if (err) {

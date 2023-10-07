@@ -8,5 +8,5 @@ export const CadastrarController = (req: Request, res: Response) : void => {
 		username,
 		password
 	)
-	user.saveUser(res)
+	user.save(res)
 }
