@@ -1,5 +1,6 @@
 import fs from 'fs'
 import dotenv from 'dotenv'
+import _ from 'lodash'
 
 dotenv.config()
 
@@ -30,7 +31,7 @@ export class User {
 		return this.password
 	}
 
-	public saveUser () : void {
+	public saveUser () : string {
 		const file_path = `./src/database/${USERS_DOCUMENT}`
 		fs.readFile(file_path, 'utf-8', (err, data) => {
 			if (err) {
@@ -38,6 +39,10 @@ export class User {
 				return
 			}
 			const users_array : object[] = JSON.parse(data)
+			if (_.find(users_array, { "username": this.getUsername() })) {
+				console.log('erro: usuário já cadastrado')
+				return 'erro: usuário já cadastrado'
+			}
 			const new_username : string = this.getUsername()
 			const new_password : string = this.getPassword()
 			const new_user : object = {
@@ -50,7 +55,9 @@ export class User {
 			fs.writeFile(file_path, new_users_data_string, (err) => {
 				if (err) console.error(err)
 			})
-
+			console.log('sucesso')
+			return 'sucesso'
 		})
+		return ''
 	}
 }
