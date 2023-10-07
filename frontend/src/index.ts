@@ -4,6 +4,10 @@ const host : string = `http://localhost:${PORT}`
 const sendUserData = (action : string) : void => {
 	const username : string | null = (<HTMLInputElement>document.querySelector('input[name=username]')).value
 	const password : string | null = (<HTMLInputElement>document.querySelector('input[name=password]')).value
+	if ((username === '') || (password === '')) {
+		alert('Preencha todos os campos')
+		return
+	}
 	const data : object = {
 		"username": username,
 		"password": password
@@ -18,7 +22,7 @@ const sendUserData = (action : string) : void => {
 		res.json().then((data) => {
 			if (action === 'logar') {
 				if (data.message !== 'Usuário ou senha inválidos') {
-					window.location.href = document.URL.replace('pages/login', 'index')
+					location.href = document.URL.replace('pages/login', 'index')
 				} else {
 					alert(data.message)
 				}
@@ -30,11 +34,27 @@ const sendUserData = (action : string) : void => {
 }
 
 const logout = () : void => {
-	console.log('clicou em sair')
 	fetch(`${host}/sair`, {
 		method: 'POST'
 	}).then((res: Response) => {
-		if (res.status == 200) window.location.href = document.URL.replace('index', 'pages/login')
+		location.href = document.URL.replace('index', 'pages/login')
+	})
+}
+
+const checkSession = () : void => {
+	fetch(`${host}/checkSession`, {
+		method: 'POST'
+	}).then((res: Response) => {
+		res.json().then((data) => {
+			console.log(data)
+			const url = document.URL
+			if (data.user === '') {
+				if (url.includes('index')) location.href = document.URL.replace('index', 'pages/login')
+			} else {
+				if (url.includes('login')) location.href = document.URL.replace('pages/login', 'index')
+				if (url.includes('cadastro')) location.href = document.URL.replace('pages/cadastro', 'index')
+			}
+		})
 	})
 }
 
@@ -51,3 +71,4 @@ if (page_title === 'Aplicação') {
 	const register_button : HTMLElement | null = document.querySelector('#register-button')
 	register_button?.addEventListener('click', () => { sendUserData('cadastrar') })
 }
+window.addEventListener('load', checkSession)

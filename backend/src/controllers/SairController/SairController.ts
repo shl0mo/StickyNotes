@@ -3,6 +3,7 @@ import fs from 'fs'
 
 export const SairController = (req : Request, res: Response) => {
 	fs.writeFileSync('sessao.txt', '')
-	console.log('Sessão encerrada com sucesso')
-	res.status(200)
+	const message = 'Sessão encerrada com sucesso'
+	console.log(message)
+	res.json({ "message": message })
 }
