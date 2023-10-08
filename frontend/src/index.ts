@@ -1,13 +1,20 @@
 const PORT : number = 5000
 const host : string = `http://localhost:${PORT}`
 
-
 type Card = {
 	"user" : string
 	"title" : string
 	"inclusion_time" : string
 	"deadline" : string
 	"text" : string
+}
+
+const card_before_update : Card = {
+	user: "",
+	title: "",
+	inclusion_time: "",
+	deadline: "",
+	text: ""
 }
 
 
@@ -55,6 +62,10 @@ function enableEditingStickyNode () {
 	const input_deadline : HTMLInputElement = (<HTMLInputElement>card.children[0].children[0].children[2].children[1].children[0])
 	const input_text : HTMLInputElement = (<HTMLInputElement>card.children[0].children[0].children[3])
 	const save_button : HTMLElement = (<HTMLElement>card.children[0].children[1])
+	card_before_update.title = input_title.value
+	card_before_update.inclusion_time = input_inclusion_time.value
+	card_before_update.deadline = input_deadline.value
+	card_before_update.text = input_text.value
 	const inputs : HTMLInputElement[] = []
 	inputs.push(input_title)
 	inputs.push(input_inclusion_time)
@@ -70,8 +81,54 @@ function enableEditingStickyNode () {
 	save_button.classList.replace('d-none', 'd-block')
 }
 
-const saveUpdates = () => {
-	// const card = this.
+function saveUpdates () {
+	const card = this.parentNode.parentNode
+	const input_title : HTMLInputElement = (<HTMLInputElement>card.children[0].children[0].children[0].children[0].children[0])
+	const input_inclusion_time : HTMLInputElement = (<HTMLInputElement>card.children[0].children[0].children[2].children[0].children[0])
+	const input_deadline : HTMLInputElement = (<HTMLInputElement>card.children[0].children[0].children[2].children[1].children[0])
+	const input_text : HTMLInputElement = (<HTMLInputElement>card.children[0].children[0].children[3])
+	const save_button : HTMLInputElement = (<HTMLInputElement>card.children[0].children[1])
+	const title : string = input_title.value
+	const inclusion_time : string = input_inclusion_time.value
+	const deadline : string = input_deadline.value
+	const text : string = input_text.value
+	const data : object = {
+		"title_before_update": card_before_update.title,
+		"inclusion_time_before_update": card_before_update.inclusion_time,
+		"deadline_before_update": card_before_update.deadline,
+		"text_before_update": card_before_update.text,
+		"title": title,
+		"inclusion_time": inclusion_time,
+		"deadline": deadline,
+		"text": text
+	}
+	fetch(`${host}/alterarLembrete`, {
+		method: 'POST',
+		headers: {
+			"Content-Type": 'application/json'
+		},
+		body: JSON.stringify(data)
+	}).then((res: Response) => {
+		res.json().then((data) => {
+			if (data.message === 'sucesso') {
+				const inputs : HTMLInputElement[] = []
+				inputs.push(input_title)
+				inputs.push(input_inclusion_time)
+				inputs.push(input_deadline)
+				inputs.push(input_text)
+				for (const input of inputs) {
+					input.readOnly = true
+					input.classList.remove('bg-light')
+					input.classList.replace('border-1', 'border-0')
+					input.classList.remove('rounded')
+					input.classList.remove('p-1')		
+				}
+				save_button.classList.replace('d-block', 'd-none')
+			} else if (data.message == 'erro') {
+				alert('Erro ao tentar alterar o lembrete. Tente novamente')
+			}
+		})
+	})
 }
 
 const addCard = (title : string, inclusion_time : string, deadline : string, text : string) : void => {	
@@ -93,8 +150,8 @@ const addCard = (title : string, inclusion_time : string, deadline : string, tex
 						</div>
 						<hr class="mt-1">
 						<h6 class="card-subtitle mb-2 text-primary">
-							<div class="mb-1">Data e hora de adição: <input type="datetime-local" class="border-0 w-75" value="${inclusion_time}" readonly></div>
-							<div class="text-danger mb-1">Prazo: <input type="datetime-local" class="border-0 w-75" value="${deadline}" readonly></div>
+							<div class="mb-1">Data e hora de adição: <input type="text" class="border-0 w-75" value="${inclusion_time}" readonly></div>
+							<div class="text-danger mb-1">Prazo: <input type="text" class="border-0 w-75" value="${deadline}" readonly></div>
 						</h6>
 						<textarea rows="3" class="w-100 border-0" style="resize: none;" readonly>${text}</textarea>
 					</div>
@@ -111,7 +168,7 @@ const addCard = (title : string, inclusion_time : string, deadline : string, tex
 	for (let i = 0; i < close_buttons.length; i++) {
 		close_buttons[i].addEventListener('click', deleteStickyNote, false)
 		edit_buttons[i].addEventListener('click', enableEditingStickyNode, false)
-		save_updates_buttons[i].addEventListener('click', saveUpdates, false)
+		save_buttons[i].addEventListener('click', saveUpdates, false)
 	}
 	const close_modal : HTMLElement | null = document.querySelector('#close-modal')
 	close_modal?.click()

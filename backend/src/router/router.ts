@@ -6,6 +6,7 @@ import { CheckSessionController } from '../controllers/CheckSessionController/Ch
 import { CriarLembreteController } from '../controllers/CriarLembreteController/CriarLembreteController'
 import { ListStickyNotesController } from '../controllers/ListStickyNotesController/ListStickyNotesController'
 import { ExcluirLembreteController } from '../controllers/ExcluirLembreteController/ExcluirLembreteController'
+import { AlterarLembreteController } from '../controllers/AlterarLembreteController/AlterarLembreteController'
 
 const router = express.Router()
 
@@ -27,5 +28,7 @@ router.post('/criarLembrete', CriarLembreteController)
 router.post('/listStickyNotes', ListStickyNotesController)
 
 router.post('/excluirLembrete', ExcluirLembreteController)
+
+router.post('/alterarLembrete', AlterarLembreteController)
 
 export default router
