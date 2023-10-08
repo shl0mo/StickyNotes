@@ -40,7 +40,6 @@ const AlterarLembreteController = (req, res) => {
             const same_deadline = card.deadline === deadline_before_update;
             const same_text = card.text === text_before_update;
             if (same_user && same_title && same_inclusion_time && same_deadline && same_text) {
-                console.log('Updating card...');
                 card.title = title;
                 card.inclusion_time = inclusion_time;
                 card.deadline = deadline;

@@ -65,7 +65,6 @@ class Card {
                 "text": this.getText()
             };
             cards_array.push(new_card);
-            console.log(cards_array);
             const new_cards_data_string = JSON.stringify(cards_array);
             fs_1.default.writeFile(file_path, new_cards_data_string, (err) => {
                 if (err)

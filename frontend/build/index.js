@@ -120,7 +120,7 @@ const addCard = (title, inclusion_time, deadline, text) => {
 			<div class="card position-relative shadow p-1">
 				<div class="card-body">
 					<div class="d-flex flex-row justify-content-between m-0">
-						<h5 class="card-title mb-3"><input type="text" class="border-0 w-75" value="${title}" readonly></h5>
+						<h5 class="card-title mb-3"><input type="text" class="border-0 w-100" value="${title}" readonly></h5>
 								<div class="d-flex flex-row w-25 justify-content-around">
 								<div>
 									<button class="btn p-0 pb-2"><i class="bi bi-pencil-square edit-button"></i></button>
@@ -135,7 +135,7 @@ const addCard = (title, inclusion_time, deadline, text) => {
 							<div class="mb-1">Data e hora de adição: <input type="text" class="border-0 w-75" value="${inclusion_time}" readonly></div>
 							<div class="text-danger mb-1">Prazo: <input type="text" class="border-0 w-75" value="${deadline}" readonly></div>
 						</h6>
-						<textarea rows="3" class="w-100 border-0" style="resize: none;" readonly>${text}</textarea>
+						<textarea rows="2" class="w-100 border-0" style="resize: none;" readonly>${text}</textarea>
 					</div>
 					<buttom class="save-updates-button btn btn-primary d-none">Salvar</button>
 				</div>
@@ -161,7 +161,7 @@ const createStickyNote = () => {
     const inclusion_time = current_datetime;
     const deadline = document.querySelector('#input-deadline').value;
     const text = document.querySelector('#textarea-description').value;
-    if (title === '' || inclusion_time === '' || deadline === '' || text === '') {
+    if (title === '' || inclusion_time === '' || deadline === '') {
         alert('Preencha todos os campos');
         return;
     }

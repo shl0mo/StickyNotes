@@ -48,7 +48,6 @@ class User {
                 "password": new_password
             };
             users_array.push(new_user);
-            console.log(users_array);
             const new_users_data_string = JSON.stringify(users_array);
             fs_1.default.writeFile(file_path, new_users_data_string, (err) => {
                 if (err)
