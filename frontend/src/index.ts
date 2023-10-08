@@ -60,7 +60,6 @@ function enableEditingStickyNode () {
 	card_before_update.text = input_text.value
 	const inputs : HTMLInputElement[] = []
 	inputs.push(input_title)
-	inputs.push(input_inclusion_time)
 	inputs.push(input_deadline)
 	inputs.push(input_text)
 	for (const input of inputs) {
@@ -105,7 +104,6 @@ function saveUpdates () {
 			if (data.message === 'sucesso') {
 				const inputs : HTMLInputElement[] = []
 				inputs.push(input_title)
-				inputs.push(input_inclusion_time)
 				inputs.push(input_deadline)
 				inputs.push(input_text)
 				for (const input of inputs) {
