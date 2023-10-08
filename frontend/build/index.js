@@ -132,8 +132,8 @@ const addCard = (title, inclusion_time, deadline, text) => {
 						</div>
 						<hr class="mt-1">
 						<h6 class="card-subtitle mb-2 text-primary">
-							<div class="mb-1">Data e hora de adição: <input type="text" class="border-0 w-75" value="${inclusion_time}" readonly></div>
-							<div class="text-danger mb-1">Prazo: <input type="text" class="border-0 w-75" value="${deadline}" readonly></div>
+							<div class="mb-1">Data e hora de adição: <input type="datetime-local" class="border-0 w-75" value="${inclusion_time}" readonly></div>
+							<div class="text-danger mb-1">Prazo: <input type="datetime-local" class="border-0 w-75" value="${deadline}" readonly></div>
 						</h6>
 						<textarea rows="2" class="w-100 border-0" style="resize: none;" readonly>${text}</textarea>
 					</div>
@@ -156,7 +156,12 @@ const addCard = (title, inclusion_time, deadline, text) => {
     close_modal === null || close_modal === void 0 ? void 0 : close_modal.click();
 };
 const createStickyNote = () => {
-    const current_datetime = new Date().toISOString();
+    let current_datetime = new Date().toISOString();
+    current_datetime = current_datetime.split('.')[0];
+    const current_datetime_array = current_datetime.split('');
+    for (let i = 0; i < 3; i++)
+        current_datetime_array.pop();
+    current_datetime = current_datetime_array.join('');
     const title = document.querySelector('#input-title').value;
     const inclusion_time = current_datetime;
     const deadline = document.querySelector('#input-deadline').value;
@@ -252,7 +257,6 @@ const listStickyNotes = () => {
         method: 'POST',
     }).then((res) => {
         res.json().then((data) => {
-            console.log(data);
             const data_array = data.data_array;
             for (let card of data_array) {
                 addCard(card.title, card.inclusion_time, card.deadline, card.text);
