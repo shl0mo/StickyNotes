@@ -8,27 +8,23 @@ import { ListStickyNotesController } from '../controllers/ListStickyNotesControl
 import { ExcluirLembreteController } from '../controllers/ExcluirLembreteController/ExcluirLembreteController'
 import { AlterarLembreteController } from '../controllers/AlterarLembreteController/AlterarLembreteController'
 
-const router = express.Router()
+const request = express.Router()
 
 
-router.get('/', (req: Request, res: Response) => {
-	res.end('Inicio')
-})
+request.post('/logar', LogarController)
 
-router.post('/logar', LogarController)
+request.post('/cadastrar', CadastrarController)
 
-router.post('/cadastrar', CadastrarController)
+request.post('/sair', SairController)
 
-router.post('/sair', SairController)
+request.post('/checkSession', CheckSessionController)
 
-router.post('/checkSession', CheckSessionController)
+request.post('/criarLembrete', CriarLembreteController)
 
-router.post('/criarLembrete', CriarLembreteController)
+request.post('/listStickyNotes', ListStickyNotesController)
 
-router.post('/listStickyNotes', ListStickyNotesController)
+request.post('/excluirLembrete', ExcluirLembreteController)
 
-router.post('/excluirLembrete', ExcluirLembreteController)
+request.post('/alterarLembrete', AlterarLembreteController)
 
-router.post('/alterarLembrete', AlterarLembreteController)
-
-export default router
+export default request

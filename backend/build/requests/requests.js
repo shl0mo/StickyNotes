@@ -1,0 +1,24 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const CadastrarController_1 = require("../controllers/CadastrarController/CadastrarController");
+const LogarController_1 = require("../controllers/LogarController/LogarController");
+const SairController_1 = require("../controllers/SairController/SairController");
+const CheckSessionController_1 = require("../controllers/CheckSessionController/CheckSessionController");
+const CriarLembreteController_1 = require("../controllers/CriarLembreteController/CriarLembreteController");
+const ListStickyNotesController_1 = require("../controllers/ListStickyNotesController/ListStickyNotesController");
+const ExcluirLembreteController_1 = require("../controllers/ExcluirLembreteController/ExcluirLembreteController");
+const AlterarLembreteController_1 = require("../controllers/AlterarLembreteController/AlterarLembreteController");
+const request = express_1.default.Router();
+request.post('/logar', LogarController_1.LogarController);
+request.post('/cadastrar', CadastrarController_1.CadastrarController);
+request.post('/sair', SairController_1.SairController);
+request.post('/checkSession', CheckSessionController_1.CheckSessionController);
+request.post('/criarLembrete', CriarLembreteController_1.CriarLembreteController);
+request.post('/listStickyNotes', ListStickyNotesController_1.ListStickyNotesController);
+request.post('/excluirLembrete', ExcluirLembreteController_1.ExcluirLembreteController);
+request.post('/alterarLembrete', AlterarLembreteController_1.AlterarLembreteController);
+exports.default = request;

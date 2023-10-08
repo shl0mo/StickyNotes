@@ -7,13 +7,13 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const body_parser_1 = __importDefault(require("body-parser"));
 const cors_1 = __importDefault(require("cors"));
-const router_1 = __importDefault(require("./router/router"));
+const requests_1 = __importDefault(require("./requests/requests"));
 dotenv_1.default.config();
 const PORT = process.env.PORT || 7777;
 const app = (0, express_1.default)();
 app.use(body_parser_1.default.json());
 app.use((0, cors_1.default)());
-app.use(router_1.default);
+app.use(requests_1.default);
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
