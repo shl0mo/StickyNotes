@@ -18,37 +18,101 @@ const formatDateTime = (unformatted_date : string) : string => {
 	return `${date} &bullet; ${time}`
 }
 
+function deleteStickyNote () {
+	const card = this.parentNode.parentNode.parentNode.parentNode.parentNode
+	const title = card.children[0].children[0].children[0].children[0].children[0].value
+	const inclusion_time = card.children[0].children[0].children[2].children[0].children[0].value
+	const deadline = card.children[0].children[0].children[2].children[1].children[0].value
+	const text = card.children[0].children[0].children[3].value
+	const data : object = {
+		"title": title,
+		"inclusion_time": inclusion_time,
+		"deadline": deadline,
+		"text": text
+	}
+	console.log(data)
+	fetch(`${host}/excluirLembrete`, {
+		method: 'POST',
+		headers: {
+			"Content-Type": 'application/json'
+		},
+		body: JSON.stringify(data)
+	}).then((res: Response) => {
+		res.json().then((data) => {
+			if (data.message === 'sucesso') {
+				card.remove()
+			} else if (data.message == 'erro') {
+				alert('Erro ao tentar excluir o lembrete. Tente novamente')
+			}
+		})
+	})
+}
+
+function enableEditingStickyNode () {
+	const card = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode
+	const input_title : HTMLInputElement = (<HTMLInputElement>card.children[0].children[0].children[0].children[0].children[0])
+	const input_inclusion_time : HTMLInputElement = (<HTMLInputElement>card.children[0].children[0].children[2].children[0].children[0])
+	const input_deadline : HTMLInputElement = (<HTMLInputElement>card.children[0].children[0].children[2].children[1].children[0])
+	const input_text : HTMLInputElement = (<HTMLInputElement>card.children[0].children[0].children[3])
+	const save_button : HTMLElement = (<HTMLElement>card.children[0].children[1])
+	const inputs : HTMLInputElement[] = []
+	inputs.push(input_title)
+	inputs.push(input_inclusion_time)
+	inputs.push(input_deadline)
+	inputs.push(input_text)
+	for (const input of inputs) {
+		input.readOnly = false
+		input.classList.add('bg-light')
+		input.classList.replace('border-0', 'border-1')
+		input.classList.add('rounded')
+		input.classList.add('p-1')
+	}
+	save_button.classList.replace('d-none', 'd-block')
+}
+
+const saveUpdates = () => {
+	// const card = this.
+}
+
 const addCard = (title : string, inclusion_time : string, deadline : string, text : string) : void => {	
 	let card_element_string : string = `
 		<div class="col-md-3 col-sm-6 col-12">
+
 			<div class="card position-relative shadow p-1">
 				<div class="card-body">
 					<div class="d-flex flex-row justify-content-between m-0">
-						<h5 class="card-title mb-3">${title}</h5>
+						<h5 class="card-title mb-3"><input type="text" class="border-0 w-75" value="${title}" readonly></h5>
 								<div class="d-flex flex-row w-25 justify-content-around">
 								<div>
-									<button class="btn p-0 pb-2"><i class="bi bi-pencil-square"></i></button>
+									<button class="btn p-0 pb-2"><i class="bi bi-pencil-square edit-button"></i></button>
 								</div>
-								<div>
-									<button type="button" class="btn-close" aria-label="Fechar"></button>
+								<div class="container-btn-close-card">
+									<button type="button" class="btn-close btn-close-card" aria-label="Fechar"></button>
 								</div>
 							</div>
 						</div>
 						<hr class="mt-1">
 						<h6 class="card-subtitle mb-2 text-primary">
-							<div class="mb-1">Data e hora de adição: ${inclusion_time}</div>
-							<div class="text-danger mb-1">Prazo: ${deadline}</div>
+							<div class="mb-1">Data e hora de adição: <input type="datetime-local" class="border-0 w-75" value="${inclusion_time}" readonly></div>
+							<div class="text-danger mb-1">Prazo: <input type="datetime-local" class="border-0 w-75" value="${deadline}" readonly></div>
 						</h6>
-						<p class="card-text">
-						${text}
-						</p>
+						<textarea rows="3" class="w-100 border-0" style="resize: none;" readonly>${text}</textarea>
 					</div>
+					<buttom class="save-updates-button btn btn-primary d-none">Salvar</button>
 				</div>
 			</div>
-	`
+	` 
 	card_element_string = card_element_string.trim()
 	const cards_container : HTMLElement = (<HTMLElement>document.querySelector('#cards-container'))
 	cards_container.innerHTML = cards_container.innerHTML + card_element_string
+	const close_buttons : NodeListOf<HTMLElement> = document.querySelectorAll('.container-btn-close-card')
+	const edit_buttons : NodeListOf<HTMLElement> = document.querySelectorAll('.edit-button')
+	const save_buttons : NodeListOf<HTMLElement> = document.querySelectorAll('.save-updates-button')
+	for (let i = 0; i < close_buttons.length; i++) {
+		close_buttons[i].addEventListener('click', deleteStickyNote, false)
+		edit_buttons[i].addEventListener('click', enableEditingStickyNode, false)
+		save_updates_buttons[i].addEventListener('click', saveUpdates, false)
+	}
 	const close_modal : HTMLElement | null = document.querySelector('#close-modal')
 	close_modal?.click()
 }
