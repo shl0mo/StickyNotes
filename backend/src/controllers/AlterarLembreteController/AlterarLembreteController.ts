@@ -52,11 +52,9 @@ export const AlterarLembreteController = (req : Request, res: Response) => {
 				card.inclusion_time = inclusion_time
 				card.deadline = deadline
 				card.text = text
-				console.log(card)
 			}	
 		}
 		const new_data_array_string : string = JSON.stringify(data_array)
-		console.log(data_array)
 		fs.writeFile(file_path, new_data_array_string, (err) => {
 			if (err) console.error(err)
 		})

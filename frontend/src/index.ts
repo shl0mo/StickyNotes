@@ -17,14 +17,6 @@ const card_before_update : Card = {
 	text: ""
 }
 
-
-const formatDateTime = (unformatted_date : string) : string => {
-	let date : string = unformatted_date.split('T')[0]
-	while (date.includes('-')) date = date.replace('-', '/')
-	const time : string = unformatted_date.split('T')[1].split('.')[0]
-	return `${date} &bullet; ${time}`
-}
-
 function deleteStickyNote () {
 	const card = this.parentNode.parentNode.parentNode.parentNode.parentNode
 	const title = card.children[0].children[0].children[0].children[0].children[0].value
@@ -177,8 +169,8 @@ const addCard = (title : string, inclusion_time : string, deadline : string, tex
 const createStickyNote = () : void => {
 	const current_datetime = new Date().toISOString()
 	const title : string | null = (<HTMLInputElement>document.querySelector('#input-title')).value
-	const inclusion_time : string | null = formatDateTime(current_datetime)
-	const deadline : string | null = formatDateTime((<HTMLInputElement>document.querySelector('#input-deadline')).value)
+	const inclusion_time : string | null = current_datetime
+	const deadline : string | null = (<HTMLInputElement>document.querySelector('#input-deadline')).value
 	const text : string | null = (<HTMLInputElement>document.querySelector('#textarea-description')).value
 	if (title === '' || inclusion_time === '' || deadline === '' || text === '') {
 		alert('Preencha todos os campos')
